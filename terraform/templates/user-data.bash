@@ -11,7 +11,7 @@ install_syslog_ng_ubuntu() {
     # Update package list
     sudo apt update
 
-    # Install syslog-ng
+    # Install syslog-ng and the HTTP module
     sudo apt install -y syslog-ng syslog-ng-mod-http
 
     # Enable and start the syslog-ng service
@@ -26,11 +26,14 @@ install_syslog_ng_ubuntu() {
 install_syslog_ng_suse() {
     echo "Detected SUSE OS."
     
+    # Add the syslog-ng repository
+    sudo zypper ar https://download.opensuse.org/repositories/home:/czanik:/syslog-ng48/15.5/ syslog-ng48
+
     # Refresh the package list
     sudo zypper refresh
 
-    # Install syslog-ng
-    sudo zypper install -y syslog-ng
+    # Install syslog-ng and the HTTP module
+    sudo zypper in -y syslog-ng syslog-ng-curl
 
     # Enable and start the syslog-ng service
     sudo systemctl daemon-reload

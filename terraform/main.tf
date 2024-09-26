@@ -151,17 +151,18 @@ resource "null_resource" "main" {
     --query 'sort_by(Images, &CreationDate)[].Name'
 
   Create a new instance of the latest SUSE on an EC2 instance,
-  t2.micro node. We can find more options using the AWS command line:
- 
-   aws ec2 describe-images --owners 013907871322 \
-     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
-     --query 'sort_by(Images, &CreationDate)[].Name'
- 
-   aws ec2 describe-images --owners 013907871322 \
-     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
-     --query 'sort_by(Images, &CreationDate)[].Name'
+  t2.micro node. We can find more options using the AWS command line.
 
-  These instances are Free Tier eligible.
+  In this case we use ami-0cd60fd97301e4b49 and ami-0cd60fd97301e4b49
+  to explicitly call out SUSE images that are Free Tier eligible.
+ 
+   aws ec2 describe-images --owners 013907871322 \
+     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
+     --query 'sort_by(Images, &CreationDate)[].Name'
+ 
+   aws ec2 describe-images --owners 013907871322 \
+     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
+     --query 'sort_by(Images, &CreationDate)[].Name'
  *** **** **** **** **** **** **** **** **** **** **** ****/
 
 data "aws_ami" "ubuntu" {
@@ -169,7 +170,8 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    # values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["suse-sles-15-sp6-v20240808-hvm-ssd-x86_64"] # SUSE
   }
 
   filter {
@@ -177,7 +179,8 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  # owners = ["099720109477"] # Canonical
+  owners = ["013907871322"] # SUSE
 }
 
 locals {

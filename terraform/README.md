@@ -1,10 +1,10 @@
 # Deploy a test EC2 Instance
 
-This Terraform deployment deploys an EC2 instance of `ubuntu` or `SUSE` operating system to help you explore the configuration of `syslog-ng` to forward data to SentinelOne AI SIEM.
+This Terraform code deploys an EC2 instance of `ubuntu` or `SUSE` operating system to help you explore the configuration of `syslog-ng` to forward data to SentinelOne AI SIEM.
 
 ## Terraform requirements
 
-### Declare your Log Access Keys for the deployment
+### Declare your S1 `Write` Log Access Key
 Do not declare these in a public enviornment, and **do not store in a file** to avoid credential sprawl.
 ```bash
 export TF_VAR_SDL_TOKEN="0abc1dAeB2CfghDiEFj5klmG_JKnopq6Hr7sIMNOtPv8-"
