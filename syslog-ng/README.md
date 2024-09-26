@@ -62,11 +62,6 @@ destination d_sentinelone_hec_fortigate {
     body("${MESSAGE}")
     method("POST")
     content-compression("gzip")
-    batch-lines(5000)
-    batch-bytes(6000Kb)
-    batch-timeout(10000)
-    retries(1)
-    workers(4)
   );
 };
 

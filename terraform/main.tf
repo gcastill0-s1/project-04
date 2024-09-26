@@ -138,16 +138,31 @@ resource "null_resource" "main" {
   }
 }
 
-# Create a new instance of the latest Ubuntu on an EC2 instance,
-# t2.micro node. We can find more options using the AWS command line:
-#
-#  aws ec2 describe-images --owners 099720109477 \
-#    --filters "Name=name,Values=*hvm-ssd*bionic*18.04-amd64*" \
-#    --query 'sort_by(Images, &CreationDate)[].Name'
-#
-# aws ec2 describe-images --owners 099720109477 \
-#   --filters "Name=name,Values=*hvm-ssd*focal*20.04-amd64*" \
-#   --query 'sort_by(Images, &CreationDate)[].Name'
+/**** **** **** **** **** **** **** **** **** **** **** ****
+  Create a new instance of the latest Ubuntu on an EC2 instance,
+  t2.micro node. We can find more options using the AWS command line:
+ 
+   aws ec2 describe-images --owners 099720109477 \
+     --filters "Name=name,Values=*hvm-ssd*bionic*18.04-amd64*" \
+     --query 'sort_by(Images, &CreationDate)[].Name'
+ 
+  aws ec2 describe-images --owners 099720109477 \
+    --filters "Name=name,Values=*hvm-ssd*focal*20.04-amd64*" \
+    --query 'sort_by(Images, &CreationDate)[].Name'
+
+  Create a new instance of the latest SUSE on an EC2 instance,
+  t2.micro node. We can find more options using the AWS command line:
+ 
+   aws ec2 describe-images --owners 013907871322 \
+     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
+     --query 'sort_by(Images, &CreationDate)[].Name'
+ 
+   aws ec2 describe-images --owners 013907871322 \
+     --filters "Name=image-id,Values=ami-0cd60fd97301e4b49" \
+     --query 'sort_by(Images, &CreationDate)[].Name'
+
+  These instances are Free Tier eligible.
+ *** **** **** **** **** **** **** **** **** **** **** ****/
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -164,24 +179,6 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"] # Canonical
 }
-
-# To build our simple Web application, we need to obtain
-# the bootstrap script for Nginx and the Web app. 
-
-# data "http" "happy_animals" {
-#   url = "https://raw.githubusercontent.com/gcastill0/iac-journey-01/main/bash/deploy-app.sh"
-# }
-
-# We are opting to use an URL for portability so that 
-# changes to the bootstrap script do not affect the 
-# final deployment.
-
-# data "template_file" "happy_animals" {
-#   template = data.http.happy_animals.response_body
-# }
-
-# This EC2 instace inherits all of the default values
-# from the AWS intrumentation.
 
 locals {
   SDL_TOKEN = "${var.SDL_TOKEN}"
