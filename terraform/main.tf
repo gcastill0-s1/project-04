@@ -170,8 +170,8 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    # values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-    values = ["suse-sles-15-sp6-v20240808-hvm-ssd-x86_64"] # SUSE
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    # values = ["suse-sles-15-sp6-v20240808-hvm-ssd-x86_64"] # SUSE
   }
 
   filter {
@@ -179,8 +179,8 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  # owners = ["099720109477"] # Canonical
-  owners = ["013907871322"] # SUSE
+  owners = ["099720109477"] # Canonical
+  # owners = ["013907871322"] # SUSE
 }
 
 locals {
