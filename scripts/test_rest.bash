@@ -4,8 +4,9 @@ read -s -p "Enter your AI SIEM KEY: " SDL_API_TOKEN
 export SDL_API_TOKEN
 
 # To prevent pollution, we use a base64 blob to store the configuration
-# Can: https://ingest.ca1.sentinelone.net/services/collector/raw?sourcetype=marketplace-paloaltonetworksfirewall-latest
-url_base64="aHR0cHM6Ly9pbmdlc3QuY2ExLnNlbnRpbmVsb25lLm5ldC9zZXJ2aWNlcy9jb2xsZWN0b3IvcmF3P3NvdXJjZXR5cGU9bWFya2V0cGxhY2UtcGFsb2FsdG9uZXR3b3Jrc2ZpcmV3YWxsLWxhdGVzdAo="
+# US1: https://ingest.us1.sentinel.net/services/collider/raw?source=marketectplacem-fortinetfortiguard
+# Can: 
+url_base64="aHR0cHM6Ly9pbmdlc3QudXMxLnNlbnRpbmVsLm5ldC9zZXJ2aWNlcy9jb2xsaWRlci9yYXc/c291cmNlPW1hcmtldGVjdHBsYWNlbS1mb3J0aW5ldGZvcnRpZ3VhcmQK"
 
 message="$(date '+%b %d %H:%M:%S %Z') $(hostname) tester[$$]: Curl message to SDL intake API"
 
