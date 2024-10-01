@@ -36,13 +36,13 @@ Oct 01 16:23:52.000 D6T6RGQQ4T tester[4867]: Test message to SDL intake API usin
 * (304) (IN), TLS handshake, CERT verify (15):
 * (304) (IN), TLS handshake, Finished (20):
 * (304) (OUT), TLS handshake, Finished (20):
-* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* SSL connection using TLSv1.3 
 * ALPN: server accepted h2
 * Server certificate:
 *  subject: CN=*.us1.sentinelone.net
 *  start date: Aug  6 15:54:10 2024 GMT
 *  expire date: Nov  4 15:54:09 2024 GMT
-*  issuer: C=US; O=Let's Encrypt; CN=R10
+*  issuer: C=US; O=Lets Encrypt; CN=R10
 *  SSL certificate verify ok.
 * using HTTP/2
 * [HTTP/2] [1] OPENED stream for https://ingest.us1.sentinelone.net/services/collector/raw?sourcetype=marketplace-paloaltonetworksfirewall-latest
