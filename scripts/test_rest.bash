@@ -8,8 +8,10 @@
 
 clear && echo
 
-read -s -p "Enter your AI SIEM KEY: " SDL_API_TOKEN
-export SDL_API_TOKEN
+if [ -z "$SDL_API_TOKEN" ]; then
+    read -s -p "Enter your AI SIEM KEY: " SDL_API_TOKEN
+    export SDL_API_TOKEN
+fi
 
 # The REGION to the SDL intake API. The default value is us1. The other options are:
 # US1: United States
@@ -37,11 +39,13 @@ message="$(date '+%b %d %H:%M:%S %Z') $(hostname) tester[$$]: Test message to SD
 echo $message && echo && echo
 
 # Check if the environment variable SDL_API_TOKEN exists and is not empty
-if [ -n "$SDL_API_TOKEN" ]; then
-
-    curl -v -k "${SDL_URL}" \
-    -H "Authorization: Bearer ${SDL_API_TOKEN}" \
-    -H "Accept: application/text" \
-    -d "${message}"
-
+if [ -z "${SDL_API_TOKEN+x}" ]; then
+    echo "Error: The environment variable SDL_API_TOKEN is not set or is empty."
+    exit 1
 fi
+
+# Send the test message to the SDL intake API
+curl -v -k "${SDL_URL}" \
+  -H "Authorization: Bearer ${SDL_API_TOKEN}" \
+  -H "Accept: application/text" \
+  -d "${message}"
