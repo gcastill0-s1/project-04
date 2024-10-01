@@ -92,4 +92,3 @@ else
 fi
 
 unset SDL_API_TOKEN
-
