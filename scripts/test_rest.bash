@@ -24,9 +24,13 @@ fi
 
 REGION="us1"
 
-# The default source is paloaltonetworksfirewall. The other options are: fortinetfortimanager, 
-# zscalerinternetaccess, ciscofirewallthreatdefense, and fortinetfortigate. Alternatively, you
-# can replace the SOURCETYPE variable with syslog.
+# The default source is paloaltonetworksfirewall. The other options are: 
+# fortinetfortimanager, 
+# zscalerinternetaccess, 
+# ciscofirewallthreatdefense, and 
+# fortinetfortigate. 
+
+# Alternatively, you can replace the SOURCETYPE variable with syslog.
 SOURCE="paloaltonetworksfirewall"
 
 # The SOURCETYPE to the SDL intake API. 
@@ -34,8 +38,15 @@ SOURCETYPE="marketplace-${SOURCE}-latest"
 
 SDL_URL="https://ingest.${REGION}.sentinelone.net/services/collector/raw?sourcetype=${SOURCETYPE}"
 
+  # Detect mac OSX which does not support milliseconds
+  if [[ "$(uname)" == "Darwin" ]]; then
+    timestamp=$(date '+%b %d %T.000')
+  else
+    timestamp=$(date '+%b %d %T.%N')
+  fi
+
 echo && echo
-message="$(date '+%b %d %H:%M:%S %Z') $(hostname) tester[$$]: Test message to SDL intake API using curl and ${SOURCE}"
+message="${timestamp} $(hostname) tester[$$]: Test message to SDL intake API using curl and ${SOURCE}"
 echo $message && echo && echo
 
 # Check if the environment variable SDL_API_TOKEN exists and is not empty

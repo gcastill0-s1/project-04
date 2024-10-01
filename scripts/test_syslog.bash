@@ -11,9 +11,17 @@ destination="localhost"
 port="514"
 
 # Loop to send 50 messages
-while [ $counter -le 50 ]; do
+while [ $counter -le 5 ]; do
   # Create the message with an incremental counter
-  message="$(date '+%b %d %H:%M:%S %Z') $(hostname) tester[$$]: Message number ${counter} to UDP port ${port} thread ${thread}"
+
+  # Detect mac OSX which does not support milliseconds
+  if [[ "$(uname)" == "Darwin" ]]; then
+    timestamp=$(date '+%b %d %T.000')
+  else
+    timestamp=$(date '+%b %d %T.%N')
+  fi
+
+  message="${timestamp} $(hostname) tester[$$]: Message number ${counter} to UDP port ${port} thread ${thread}"
 
   # Send the message via netcat using UDP to port 514
   echo "$message" | nc -u -w1 $destination $port
