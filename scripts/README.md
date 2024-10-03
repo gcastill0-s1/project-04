@@ -2,23 +2,26 @@
 
 We use these scripts is to test connectivity to:
 
-1. the SLD ingestion endpoint.
-2. the localhost over UDP port 514
+1. confirm the ability to connect and deliver data to your SLD ingestion endpoint.
+2. send test messages localhost over UDP port 514
 
-## Connect to the SLD ingestion endpoint
+## 1 - Connect to the SLD ingestion endpoint
 
-### Expose your SDL API Token
+### 1.1 - Expose your SDL API Token
 Do not declare this variable in a public enviornment, and **do not store in a file** to avoid credential sprawl.
 
 ```bash
 SDL_API_TOKEN="0abc1dAeB2CfghDiEFj5klmG_JKnopq6Hr7sIMNOtPv8=="
 ```
 
+### 1.2 - Run a simple connection test
+
 The [test_rest](test_rest.bash) script looks for this variable. If it is not declared, you are prompted to enter it each time your run the script.
 
 ```bash
 bash test_rest.bash
 ```
+Successful results should looks like these:
 
 ```bash
 Oct 01 16:23:52.000 D6T6RGQQ4T tester[4867]: Test message to SDL intake API using curl and paloaltonetworksfirewall

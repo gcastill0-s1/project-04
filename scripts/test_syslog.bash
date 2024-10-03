@@ -10,7 +10,7 @@ thread=$((RANDOM % 1024 + 1))
 destination="localhost"
 port="514"
 
-# Loop to send 50 messages
+# Loop to send 5 messages
 while [ $counter -le 5 ]; do
   # Create the message with an incremental counter
 
