@@ -53,11 +53,11 @@ source udp_fortigate {
   );
 };
 
-destination d_sentinelone_hec_fortigate {
+destination d_sentinelone {
   http(
-    url("SDL_INGEST_URL + SOURCETYPE")
+    url("https://ingest.us1.sentinelone.net/services/collector/raw?sourcetype=syslog")
     headers(
-        "Authorization: Bearer SDL_API_TOKEN", 
+        "Authorization: Bearer 0abc1dAeB2CfghDiEFj5klmG_JKnopq6Hr7sIMNOtPv8==", 
         "Content-Type: text/plain")
     body("${MESSAGE}")
     method("POST")
@@ -67,7 +67,7 @@ destination d_sentinelone_hec_fortigate {
 
 log {
        source(udp_fortigate);
-       destination(d_sentinelone_hec_fortigate);
+       destination(d_sentinelone);
 };
 ```
 ### HTTP API ingestion
