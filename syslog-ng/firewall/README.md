@@ -1,3 +1,146 @@
+# Syslog-ng Configuration
+
+### 1. **Check Configuration Syntax**
+
+One of the most common issues with `syslog-ng` is a misconfigured configuration file. You can check if the syntax of your configuration file is correct with this command:
+
+```bash
+sudo syslog-ng --syntax-only
+```
+
+- This will parse the configuration file and report any syntax errors. If there are issues, the command will output detailed information about what is wrong.
+
+### 2. **Start syslog-ng in Debug Mode**
+
+You can start **syslog-ng** in debug mode to get detailed logging about its internal operations. This is especially useful when troubleshooting issues related to message processing or configuration problems.
+
+```bash
+sudo syslog-ng -Fedv
+```
+
+- **`-F`**: Run syslog-ng in the foreground (instead of as a daemon).
+- **`-e`**: Log internal errors to stderr.
+- **`-d`**: Enable debug/verbose mode.
+- **`-v`**: Print version information and startup details.
+
+This will output detailed logs to the console as syslog-ng runs, showing how it processes messages and where potential issues may arise.
+
+### 3. **Reload syslog-ng Configuration**
+
+If you've made changes to the configuration and want to reload it without stopping the service, you can use the following command:
+
+```bash
+sudo syslog-ng-ctl reload
+```
+
+This reloads the configuration without stopping the service, making it easier to test configuration changes on the fly.
+
+### 4. **Check syslog-ng Status**
+
+To check if syslog-ng is running and get basic information about its status:
+
+```bash
+sudo systemctl status syslog-ng
+```
+
+This command will show whether the service is active, provide basic logs, and indicate whether syslog-ng is encountering any major issues.
+
+### 5. **View syslog-ng Internal Logs**
+
+Syslog-ng generates internal logs, which can be useful for troubleshooting operational problems (e.g., failed log deliveries, missing configuration).
+
+To view the internal logs, check the default log location (typically `/var/log/syslog` or `/var/log/messages` depending on your system):
+
+```bash
+sudo tail -f /var/log/syslog
+```
+
+If syslog-ng is running, you'll see the internal logs related to its operations.
+
+### 6. **Query syslog-ng Statistics**
+
+You can use the **`syslog-ng-ctl`** command to query various statistics about message processing, including how many logs have been received, processed, and sent to different destinations:
+
+```bash
+sudo syslog-ng-ctl stats
+```
+
+This will output detailed information on:
+- Messages received by different sources.
+- Messages processed by different filters.
+- Messages sent to different destinations.
+
+### 7. **List Current syslog-ng Configuration**
+
+To see the active syslog-ng configuration that is currently loaded, you can use:
+
+```bash
+sudo syslog-ng-ctl config
+```
+
+This is especially useful for verifying which configuration is currently being used without having to manually check the configuration files.
+
+### 8. **Increase Verbosity with syslog-ng-ctl**
+
+You can adjust the verbosity level of syslog-ng on the fly using the following command:
+
+```bash
+sudo syslog-ng-ctl verbose --set
+```
+
+This increases the verbosity level, allowing you to see more detailed logs for debugging purposes. After you're done, you can reset the verbosity with:
+
+```bash
+sudo syslog-ng-ctl verbose --unset
+```
+
+### 9. **Flush syslog-ng Queues**
+
+If you suspect that syslog-ng is not sending messages due to message queuing, you can manually flush the message queues using:
+
+```bash
+sudo syslog-ng-ctl flush
+```
+
+This forces syslog-ng to immediately send any queued messages to their destinations.
+
+### 10. **Check the Listening Ports**
+
+To confirm that syslog-ng is correctly listening on the expected network ports (for example, for UDP or TCP traffic on port 514), use:
+
+```bash
+sudo ss -tuln | grep 514
+```
+
+This shows whether syslog-ng is listening on the correct ports, such as port 514 for syslog over UDP/TCP.
+
+### 11. **Analyze syslog-ng Startup Logs**
+
+If syslog-ng fails to start, check the logs during startup for any errors. You can do this by using the `journalctl` command:
+
+```bash
+sudo journalctl -u syslog-ng
+```
+
+This will show you the systemd logs for syslog-ng and help pinpoint why syslog-ng may not be starting or why it’s encountering issues during initialization.
+
+---
+
+| **Command**                                    | **Description**                                                                                                      |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `sudo syslog-ng --syntax-only`                 | Checks for syntax errors in the syslog-ng configuration.                                                             |
+| `sudo syslog-ng -Fedv`                         | Runs syslog-ng in debug mode, showing detailed processing logs in real-time.                                          |
+| `sudo syslog-ng-ctl reload`                    | Reloads the syslog-ng configuration without stopping the service.                                                    |
+| `sudo systemctl status syslog-ng`              | Shows the current status of the syslog-ng service.                                                                   |
+| `sudo syslog-ng-ctl stats`                     | Displays statistics about received, filtered, and processed logs.                                                    |
+| `sudo syslog-ng-ctl config`                    | Displays the active syslog-ng configuration.                                                                         |
+| `sudo syslog-ng-ctl verbose --set`             | Increases the verbosity of syslog-ng logging for debugging purposes.                                                 |
+| `sudo syslog-ng-ctl flush`                     | Flushes any queued messages immediately.                                                                             |
+| `sudo ss -tuln | grep 514`                     | Verifies that syslog-ng is listening on the correct network ports (e.g., port 514 for syslog).                        |
+| `sudo journalctl -u syslog-ng`                 | Views startup and runtime logs for syslog-ng, useful for identifying startup issues.                                  |
+
+By using these commands, you can troubleshoot and manage syslog-ng configurations, detect issues with log flow, and ensure proper operation of your syslog system.
+
 # Firewall Troubleshooting
 
 ## Security-Enhanced Linux (SELinux)
