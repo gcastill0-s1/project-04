@@ -15,7 +15,6 @@ Here are some of the key commands and methods for troubleshooting `syslog-ng`:
 | `sudo ss -tuln \| grep 514`                     | Verifies that syslog-ng is listening on the correct network ports (e.g., port 514 for syslog).                      |
 | `sudo journalctl -u syslog-ng`                 | Views startup and runtime logs for syslog-ng, useful for identifying startup issues.                                 |
 
-By using these commands, you can troubleshoot and manage syslog-ng configurations, detect issues with log flow, and ensure proper operation of your syslog system.
 
 ### 1. **Check Configuration Syntax**
 
