@@ -183,17 +183,13 @@ data "aws_ami" "ubuntu" {
   # owners = ["013907871322"] # SUSE
 }
 
-locals {
-  SDL_TOKEN = "${var.SDL_TOKEN}"
-}
-
 resource "aws_instance" "app" {
   depends_on                  = [aws_internet_gateway.gw]
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = "t2.micro"
   key_name                    = aws_key_pair.main.key_name
   vpc_security_group_ids      = [aws_security_group.interrupt_app.id]
-  user_data_base64            = base64encode("${templatefile("${path.module}/templates/user-data.bash", { SDL_TOKEN = "${local.SDL_TOKEN}"})}")
+  user_data_base64            = base64encode("${templatefile("${path.module}/templates/user-data.bash", { SDL_TOKEN = "${var.SDL_TOKEN}"})}")
   tags                        = merge({ "Name" = "${var.prefix}-ubuntu" }, var.tags)
   subnet_id                   = aws_subnet.private_subnet.id
   associate_public_ip_address = true

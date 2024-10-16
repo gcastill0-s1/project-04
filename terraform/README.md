@@ -136,3 +136,35 @@ Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1070-aws x86_64)
 
 ubuntu@ip-10-0-2-242:~$ 
 ```
+
+The Terraform template creates the file `/etc/syslog-ng/conf.d/sentinel-one.conf` configured as follows:
+
+```bash
+source udp_fortigate {
+  network(
+    transport("udp")
+    port(514)
+    flags(no-parse)
+  );
+};
+
+destination d_sentinelone_hec_fortigate {
+  http(
+    url("https://ingest.us1.sentinelone.net/services/collector/raw?sourcetype=marketplace-fortinetfortigate-latest")
+    headers("Authorization: Bearer SDL_TOKEN", "Content-Type: text/plain")
+    body("${MESSAGE}")
+    method("POST")
+    content-compression("gzip")
+    batch-lines(5000)
+    batch-bytes(6000Kb)
+    batch-timeout(10000)
+    retries(1)
+    workers(4)
+  );
+};
+
+log {
+       source(udp_fortigate);
+       destination(d_sentinelone_hec_fortigate);
+};
+```
