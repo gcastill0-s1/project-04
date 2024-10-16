@@ -202,5 +202,3 @@ resource "aws_instance" "app" {
     create_before_destroy = true
   }
 }
-
-
