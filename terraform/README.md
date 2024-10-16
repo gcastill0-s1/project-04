@@ -169,4 +169,4 @@ log {
 };
 ```
 
-The cloud-init process will eventually replace the `SDL_TOKEN` string, with the token you [declare](#declare-your-s1-write-log-access-key) in the beginning of this guide.
+The cloud-init process will eventually replace the `SDL_TOKEN` string with the token you [declare](#declare-your-s1-write-log-access-key) in the beginning of this guide.

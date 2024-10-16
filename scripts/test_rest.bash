@@ -59,4 +59,5 @@ fi
 curl -v -k "${SDL_URL}" \
   -H "Authorization: Bearer ${SDL_API_TOKEN}" \
   -H "Accept: application/text" \
-  -d "${message}"
+  -d "${message}" \
+  -x POST
