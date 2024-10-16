@@ -4,7 +4,7 @@ This Terraform code deploys an EC2 instance of `ubuntu` or `SUSE` operating syst
 
 ## Terraform requirements
 
-### Declare your S1 `Write` Log Access Key
+### Declare your S1 `Write` Log Access Key 
 Do not declare these in a public enviornment, and **do not store in a file** to avoid credential sprawl.
 ```bash
 export TF_VAR_SDL_TOKEN="0abc1dAeB2CfghDiEFj5klmG_JKnopq6Hr7sIMNOtPv8-"
@@ -168,3 +168,5 @@ log {
        destination(d_sentinelone_hec_fortigate);
 };
 ```
+
+The cloud-init process will eventually replace the `SDL_TOKEN` string, with the token you [declare](#declare-your-s1-write-log-access-key) in the beginning of this guide.
