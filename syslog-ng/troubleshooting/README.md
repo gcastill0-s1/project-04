@@ -224,3 +224,41 @@ If you do not see a rule for UDP port 514 and want to allow UDP syslog traffic, 
 ```bash
 sudo ufw allow 514/udp
 ```
+
+## Install TCP Dump
+
+```bash
+# Lastes version as of Oct. 2024
+VERSION="4.99.5"  
+# Download the source code
+wget https://www.tcpdump.org/release/tcpdump-$VERSION.tar.gz
+
+# Extract the files
+tar -xvf tcpdump-$VERSION.tar.gz
+
+# Navigate to the tcpdump directory
+cd tcpdump-$VERSION/
+
+# Build the software
+make
+
+# Install the software
+sudo make install
+
+# Output:
+# tcpdump-$VERSION/
+# tcpdump-$VERSION/[...]
+# make: Nothing to be done for 'all'.
+# make: Nothing to be done for 'install'.
+```
+
+```bash
+wget https://rpmfind.net/linux/centos-stream/9-stream/BaseOS/x86_64/os/Packages/libpcap-1.10.0-4.el9.x86_64.rpm
+
+wget https://rpmfind.net/linux/centos-stream/10-stream/AppStream/x86_64/os/Packages/tcpdump-4.99.4-9.el10.x86_64.rpm
+
+sudo rpm -ivh libpcap-1.10.0-4.el9.x86_64.rpm
+sudo rmp -ivh tcpdump-4.99.4-9.el10.x86_64.rpm
+
+tcpdump --version
+```

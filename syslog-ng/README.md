@@ -72,4 +72,4 @@ log {
 ```
 ### HTTP API ingestion
 
-Use the `syslog-ng-mod-http` to route log data to a SentinelOne HTTP API ingestion endpoint. The HTTPS protocol ensures that logs are securely transported outside of your network. This is essential when dealing with sensitive information, especially in compliance-regulated environments.
+Use the `syslog-ng-mod-http` library to route log data to a SentinelOne HTTP API ingestion endpoint. The HTTPS protocol ensures that logs are securely transported outside of your network. This is essential when dealing with sensitive information, especially in compliance-regulated environments.
